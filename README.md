@@ -50,7 +50,7 @@ The three desk GIFs are the files committed on `main` in those repos (`docs/cred
 
 School, degree, minor, May 2027, Olive Branch, tax preparer, QuickBooks ProAdvisor, and Double Eagle Financial LLC follow the public GitHub profile. The page does not state a PTIN, a class year, an employer, or a salary.
 
-On 6 Nov 2026, unauthenticated requests to the three Streamlit URLs in those READMEs were redirected to a Streamlit sign-in page, and `doubleeaglefinancial.com` returned HTTP 404. The page says so. The Elite Concrete sample returned HTTP 200. Pull requests 3 on the three flagship repos were open and not merged; their Actions checks had passed. The page does not describe that work as what `main` or a hosted app currently serves.
+On 6 Nov 2026, unauthenticated requests to the three Streamlit URLs in those READMEs were redirected to a Streamlit sign-in page, and `doubleeaglefinancial.com` returned HTTP 404. The page says so. The Elite Concrete sample returned HTTP 200. Pull request 3 is merged on each flagship `main` (credit `e4a0933`, loan `25bd00c`, fraud `5ec1eec`). The page describes that code as on `main` and still does not treat the Streamlit hosts as verified public demos.
 
 ## Motion
 

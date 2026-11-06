@@ -132,7 +132,7 @@
       <section class="section" id="projects" data-now="The work">
         <div class="wrap">
           <h2><span class="sec-num">01</span>Case studies</h2>
-          <p class="lede">Numbers below are from the <code>main</code> branch READMEs unless a sentence says they are in an open pull request. Opening <code>main</code> today will not show the pull-request desks. None of this is an employer book or a production loss.</p>
+          <p class="lede">Numbers below are from the <code>main</code> READMEs after pull request 3 merged in each study: credit <code>e4a0933</code>, loan <code>25bd00c</code>, fraud <code>5ec1eec</code>. None of this is an employer book or a production loss.</p>
           <div class="legend">
             <div>
               <strong>Holdout</strong>
@@ -144,7 +144,7 @@
             </div>
             <div>
               <strong>Not an outcome</strong>
-              <p>No origination portfolio, no employer, and no claim that a hosted app is serving unmerged code.</p>
+              <p>No origination portfolio and no employer. A Streamlit URL is not treated as a public demo while it redirects to a sign-in page.</p>
             </div>
           </div>
           <nav class="program-nav" aria-label="Projects">
@@ -198,15 +198,15 @@
                   </div>
                   <div>
                     <dt>Tradeoff</dt>
-                    <dd>The boosting margin over the forest on training-fold AUC is about 0.0005, inside a fold standard deviation near 0.05. Holdout cost prefers the forest ($20,400) and logistic regression ($22,000). The README reports that flip and does not use it to change the shipped model. Against approving everyone, the 0.15 rule’s illustrative gap is $37,200. A 0.50 cutoff costs $27,200 on the same 200 people.</dd>
+                    <dd>The boosting margin over the forest on training-fold AUC is about 0.0005, inside a fold standard deviation near 0.05. Holdout cost prefers the forest ($20,400) and the untuned logistic ($22,000). A tuned logistic baseline, C = 0.1, has holdout ROC-AUC 0.809 and illustrative cost $21,000. The README reports those gaps and does not use them to replace the shipped booster. Against approving everyone, the 0.15 rule’s illustrative gap is $37,200. A 0.50 cutoff costs $27,200 on the same 200 people.</dd>
                   </div>
                   <div>
                     <dt>Limits</dt>
-                    <dd>Dropping the two demographic columns moves boosting’s mean CV ROC-AUC from 0.793 to 0.786. That is not a fair-lending validation. Holdout Brier is 0.187, against 0.21 for predicting the base rate for everyone. This is a 1994 German installment file, not a 2026 U.S. application population.</dd>
+                    <dd>Dropping the two demographic columns moves boosting’s mean CV ROC-AUC from 0.793 to 0.786. That is not a fair-lending validation. On training out-of-fold scores at cutoff 0.15, female-labeled applicants are approved 9.4 percentage points less often than male-labeled applicants, almost entirely extra false denials, and applicants under 25 are approved 20.6 percentage points less often. The README says those gaps are not a fair-lending finding. Holdout Brier is 0.187, against 0.210 for predicting the 30% base rate for everyone. This is a 1994 German installment file, not a 2026 U.S. application population.</dd>
                   </div>
                   <div>
                     <dt>Tests</dt>
-                    <dd>On <code>main</code>, GitHub Actions runs Ruff and pytest. The README states 100% line coverage of <code>src/credit_risk</code>, including the cost arithmetic and the saved-model scorer, with no network call.</dd>
+                    <dd>On <code>main</code>, GitHub Actions runs Ruff and pytest. The README requires at least 95% line coverage of <code>src/credit_risk</code>. The suite includes the cost arithmetic and the saved-model scorer and does not need a network call.</dd>
                   </div>
                 </dl>
                 <p class="status"><strong>App URL, not verified as public.</strong> The README links <a href="https://credit-risk-prediction.streamlit.app">credit-risk-prediction.streamlit.app</a>. On 6 Nov 2026 an unauthenticated request was redirected to a Streamlit sign-in page. The still and GIF on this page are the files committed on <code>main</code>.</p>
@@ -215,9 +215,10 @@
                   <a class="btn" href="https://github.com/ladariusjackson1/credit-risk-prediction/pull/3" target="_blank" rel="noopener noreferrer">Pull request 3<span class="sr-only"> (opens in a new tab)</span></a>
                 </div>
                 <details class="fold">
-                  <summary>Open pull request, not merged</summary>
-                  <p>Pull request 3 compares the shipped booster with a logistic baseline whose penalty is chosen on the training folds. C = 0.1 wins that grid, with training-fold ROC-AUC 0.781 ± 0.057. Its holdout ROC-AUC is 0.809 and its illustrative holdout cost is $21,000, $1,800 under boosting. A stratified bootstrap of the out-of-fold gap includes zero for ROC-AUC and for cost per applicant. The pull request does not replace the shipped model.</p>
-                  <p>The same pull request tables out-of-fold approval rates by the file’s sex label and by age under 25 versus 25 and older, and it says the gap is not a fair-lending finding. Batch CSV scoring and a cost slider are in that branch only. GitHub Actions on the pull request passed. None of that is on <code>main</code>, and this page does not claim the hosted app is running it.</p>
+                  <summary>Baseline, bootstrap, and the desk, on main</summary>
+                  <p>Merged in pull request 3, commit <code>e4a0933</code>. A logistic baseline is allowed a penalty search the race models do not get. C is chosen on the training folds from 0.1, 1, and 10. The winner is C = 0.1, training-fold ROC-AUC 0.781 ± 0.057. The README says that CV number can look a little better than a nested search. The baseline is not allowed to replace boosting after the holdout is opened.</p>
+                  <p>A stratified percentile bootstrap of the out-of-fold scores, 1,000 replicates, seed 42, does not refit the model. Boosting minus that baseline is +0.010 ROC-AUC, 95% interval −0.010 to 0.031, which includes zero. The out-of-fold Brier difference is −0.011, interval −0.020 to −0.002, which excludes zero. Out-of-fold cost per applicant does not separate them. The holdout price gap of $1,800 is reported and is not a reason to change the shipped model.</p>
+                  <p>The README’s desk, on this same commit, scores one file, scores a CSV of up to 5,000 rows, draws bootstrap intervals, and moves a cost slider. Profit on that slider means illustrative dollars saved versus approving everyone, at $200 a cost unit. It is not revenue. The sign-in redirect above means this page does not claim a public browser can open that desk.</p>
                 </details>
                 <details class="fold">
                   <summary>What the write-up can defend</summary>
@@ -226,10 +227,10 @@
               </div>
               <figure class="reel tilt feature-media">
                 <div class="reel-frame">
-                  <img class="demo" src="/assets/reel/credit-desk.jpg" data-gif="/assets/reel/credit-desk.gif" width="1000" height="797" alt="Still from the credit desk recording on main: a typical applicant and the fields that move the default score." decoding="async">
+                  <img class="demo" src="/assets/reel/credit-desk.jpg?v=5" data-gif="/assets/reel/credit-desk.gif?v=5" width="980" height="681" alt="Still from the credit desk recording on main: a typical applicant and the fields that move the default score." decoding="async">
                 </div>
                 <button class="play-demo btn btn-solid" type="button">Play demo recording</button>
-                <figcaption>Desk recording committed on main. Playback loads the GIF (about 192 KB). <a href="/assets/reel/credit-desk.gif">GIF file</a>.</figcaption>
+                <figcaption>Desk recording on main at <code>e4a0933</code>. Playback loads the GIF (about 372 KB). <a href="/assets/reel/credit-desk.gif?v=5">GIF file</a>.</figcaption>
               </figure>
             </div>
           </article>
@@ -247,16 +248,16 @@
                 <h3>Loan approval prediction</h3>
                 <dl class="metrics">
                   <div>
-                    <dt>0.704</dt>
-                    <dd>Holdout ROC-AUC for logistic regression. The selection rule used cross-validated ROC-AUC, 0.670 ± 0.015, and did not see this split.</dd>
+                    <dt>0.703</dt>
+                    <dd>Calibrated holdout ROC-AUC, 95% interval 0.674 to 0.734. Selection used cross-validated ROC-AUC, 0.670 ± 0.015, not this split. Uncalibrated ranking AUC is 0.704.</dd>
                   </div>
                   <div>
-                    <dt>94.8%</dt>
-                    <dd>Holdout precision at cutoff 0.64: 420 of 443 approvals were fully paid. The rule approves 23.1% of 1,916 loans.</dd>
+                    <dt>94.9%</dt>
+                    <dd>Holdout precision at the calibrated cutoff 0.89: 415 of 437 approvals were fully paid. The rule approves 22.8% of 1,916 loans.</dd>
                   </div>
                   <div>
-                    <dt>$137,000</dt>
-                    <dd>Planning-cost gap versus declining everyone. The scored book costs $828,400, decline-everyone $965,400, approve-everyone $1,535,000. Not a lender’s P&amp;L.</dd>
+                    <dt>$139,000</dt>
+                    <dd>Planning-cost gap versus declining everyone. The scored book costs $826,400, decline-everyone $965,400, approve-everyone $1,535,000. Not a lender’s P&amp;L.</dd>
                   </div>
                 </dl>
                 <dl class="case">
@@ -270,23 +271,23 @@
                   </div>
                   <div>
                     <dt>Evaluation</dt>
-                    <dd>Stratified 20% holdout, seed 42 (1,916 loans). Model choice and the cutoff use the other 7,662 only. The same 5 stratified folds score logistic regression, a random forest, and gradient boosting, each once at defaults and once after a randomized search on ROC-AUC. The cutoff minimizes average planning cost on out-of-fold scores. The winner is refit on the training loans and scored once.</dd>
+                    <dd>Stratified 20% holdout, seed 42 (1,916 loans). Model choice and the cutoff use the other 7,662 only. Logistic regression and histogram gradient boosting are compared on the same 5 stratified folds. A paired bootstrap, 1,000 resamples, seed 42, must exclude zero before a more complex model replaces the simpler one. The holdout bootstrap is reported and is not used to choose. After the choice, isotonic regression is fit on out-of-fold scores only, and the cutoff minimizes planning cost on those cross-fit probabilities.</dd>
                   </div>
                   <div>
                     <dt>Architecture</dt>
-                    <dd>Preprocessing sits inside the pipeline, so each fold refits it: median impute and scale for numerics, most-frequent impute and one-hot for purpose. Logistic regression is the deployed model (<code>C=10</code>, balanced class weight). Tuning barely moved it, from 0.669 to 0.670. After search, holdout cost among the three models differs by about $7 a loan.</dd>
+                    <dd>Preprocessing sits inside the pipeline, so each fold refits it: median impute and scale for numerics, most-frequent impute and one-hot for purpose. Logistic regression is deployed (<code>C=10</code>, balanced class weight). Its cross-validated ROC-AUC is 0.670 ± 0.015 against 0.658 ± 0.012 for histogram gradient boosting. The out-of-fold gap, logistic minus boosting, is 0.003 to 0.021 and excludes zero. The same gap on the holdout is 0.006, interval −0.010 to 0.022, which includes zero and was not allowed to pick the model.</dd>
                   </div>
                   <div>
                     <dt>Tradeoff</dt>
-                    <dd>F1 of 0.409 is what a strict cutoff looks like when most fully paid loans are declined on purpose. The useful comparisons are the 23 false approvals out of 307 loans that were not fully paid, the 92.5% decline rate on that class, and the $71.50 planning save per holdout loan versus declining everyone. Shuffling FICO drops holdout ROC-AUC by about 0.078. Putting <code>credit_policy</code> and <code>int_rate</code> back changes cross-validated ROC-AUC by about +0.001.</dd>
+                    <dd>F1 of 0.406 is what a strict cutoff looks like when most fully paid loans are declined on purpose. The deployed book funds 22 loans that are not fully paid and books 415 that are. The planning save is $72.55 a loan versus declining everyone. Shuffling FICO drops holdout ROC-AUC by about 0.078. Putting <code>credit_policy</code> and <code>int_rate</code> back changes cross-validated ROC-AUC by about +0.001.</dd>
                   </div>
                   <div>
                     <dt>Limits</dt>
-                    <dd>Holdout Brier is 0.223, worse than guessing the 84% fully-paid rate (about 0.135), so 0.64 is not a repayment frequency. The weights are a scenario: the file has no term and no loss amount. Segment rates by FICO and purpose are screening arithmetic on fields the model is allowed to see. They are not a protected-class result, and the extract cannot support one.</dd>
+                    <dd>Before calibration the holdout Brier is 0.223, worse than guessing the 84% fully-paid rate (0.135). After the isotonic map it is 0.124, so the calibrated score beats that constant. The cutoff 0.89 sits next to the 0.893 break-even of the two weights. It is still a planning cutoff, not a charge-off probability from this file. The file has no term and no loss amount. Segment rates by FICO and purpose are screening arithmetic, not a protected-class result. The extract has no sex, age, or race fields.</dd>
                   </div>
                   <div>
                     <dt>Tests</dt>
-                    <dd>On <code>main</code>, pytest fails if coverage of <code>loan_approval</code> drops under 85%. GitHub Actions runs Ruff and pytest on Python 3.12 from the cached CSV. It does not retrain and it does not call OpenML.</dd>
+                    <dd>On <code>main</code>, pytest fails if coverage of <code>loan_approval</code> drops under 95%. GitHub Actions runs Ruff and pytest on Python 3.12 from the cached CSV. It does not retrain and it does not call OpenML.</dd>
                   </div>
                 </dl>
                 <p class="status"><strong>App URL, not verified as public.</strong> The README links <a href="https://loan-approval-prediction.streamlit.app">loan-approval-prediction.streamlit.app</a>. On 6 Nov 2026 an unauthenticated request was redirected to a Streamlit sign-in page.</p>
@@ -295,9 +296,9 @@
                   <a class="btn" href="https://github.com/ladariusjackson1/loan-approval-prediction/pull/3" target="_blank" rel="noopener noreferrer">Pull request 3<span class="sr-only"> (opens in a new tab)</span></a>
                 </div>
                 <details class="fold">
-                  <summary>Open pull request, not merged</summary>
-                  <p>Pull request 3 keeps logistic regression and compares it with histogram gradient boosting. Out of fold, logistic minus boosting is 0.013 ROC-AUC, 95% interval 0.003 to 0.021, which excludes zero and is what the pull request uses to deploy logistic regression. The same difference on the holdout is 0.006, interval −0.010 to 0.022, which includes zero and is not used to choose.</p>
-                  <p>Isotonic regression is fit on training out-of-fold scores only. The calibrated holdout ROC-AUC is 0.703. Brier moves from 0.223 to 0.124, against 0.135 for a constant at the holdout fully-paid rate. The calibrated cutoff is 0.89. Planning cost on the same 1,916 loans is $826,400, which is $139,000 under decline-everyone. That operating point is not the one on <code>main</code>. Actions on the pull request passed. The hosted URL above is not described as serving this branch.</p>
+                  <summary>Calibration and the desk, on main</summary>
+                  <p>Merged in pull request 3, commit <code>25bd00c</code>. The deployed probability is the isotonic map, not the balanced class-weight score. Expected profit on the portfolio tab is <code>p × $600 − (1 − p) × $5,000</code> on approved loans and does not use the labels. Realized counts do. The README says the map is flat in places, so a field can move the ranking and leave the calibrated probability unchanged. Explanations are not an adverse-action letter.</p>
+                  <p>The desk on this commit also scores a CSV. The sign-in redirect above means this page does not claim a public browser can open that desk.</p>
                 </details>
                 <details class="fold">
                   <summary>What the write-up can defend</summary>
@@ -306,10 +307,10 @@
               </div>
               <figure class="reel tilt feature-media">
                 <div class="reel-frame">
-                  <img class="demo" src="/assets/reel/loan-desk.jpg" data-gif="/assets/reel/loan-desk.gif" width="880" height="550" alt="Still from the loan desk recording on main: a higher-risk file, the decline, and the fields that pushed it." decoding="async">
+                  <img class="demo" src="/assets/reel/loan-desk.jpg?v=5" data-gif="/assets/reel/loan-desk.gif?v=5" width="960" height="733" alt="Still from the loan desk recording on main: a higher-risk file, the decline, and the fields that pushed it." decoding="async">
                 </div>
                 <button class="play-demo btn btn-solid" type="button">Play demo recording</button>
-                <figcaption>Desk recording committed on main. Playback loads the GIF (about 2.0 MB). <a href="/assets/reel/loan-desk.gif">GIF file</a>.</figcaption>
+                <figcaption>Desk recording on main at <code>25bd00c</code>. Playback loads the GIF (about 428 KB). <a href="/assets/reel/loan-desk.gif?v=5">GIF file</a>.</figcaption>
               </figure>
             </div>
           </article>
@@ -366,7 +367,7 @@
                   </div>
                   <div>
                     <dt>Tests</dt>
-                    <dd>On <code>main</code>, GitHub Actions runs Ruff and pytest on a synthetic generator, including a forced OpenML failure, so CI does not download the public file. Coverage of <code>fraudlab</code> fails under 85%. The published scorecard itself is from the verified public extract, not from that synthetic run.</dd>
+                    <dd>On <code>main</code>, GitHub Actions runs Ruff and pytest on a synthetic generator, including a forced OpenML failure, so CI does not download the public file. Coverage of <code>fraudlab</code> fails under 95%. The published scorecard itself is from the verified public extract, not from that synthetic run.</dd>
                   </div>
                 </dl>
                 <p class="status"><strong>App URL, not verified as public.</strong> The README links <a href="https://fraud-detection-ml.streamlit.app">fraud-detection-ml.streamlit.app</a>. On 6 Nov 2026 an unauthenticated request was redirected to a Streamlit sign-in page.</p>
@@ -375,9 +376,9 @@
                   <a class="btn" href="https://github.com/ladariusjackson1/fraud-detection-ml/pull/3" target="_blank" rel="noopener noreferrer">Pull request 3<span class="sr-only"> (opens in a new tab)</span></a>
                 </div>
                 <details class="fold">
-                  <summary>Open pull request, not merged</summary>
-                  <p>Pull request 3 does not refit the scorecard. It says the random forest is still the validation-cost choice. It adds an alert-budget view: a planning volume of 137,831.5 transactions a day, from two days in the extract and no timestamps to split them. At 237 review slots a day the cached validation grid expects 182.5 frauds caught. That is the validation rate times a planning volume, not a recount of the 76-of-95 test result, and not a measured production stream.</p>
-                  <p>The pull request also reports a random-half PSI of 0.0002 on validation scores and calls it a stability check, not a drift event, because the file has no time column. Batch CSV scoring is on that branch. The pull request reports 40 pytest passes and 96.26% coverage, with the floor raised from 85% to 95%. Actions on the pull request passed. Those desk features are not on <code>main</code>.</p>
+                  <summary>Alert budget and monitoring, on main</summary>
+                  <p>Merged in pull request 3, commit <code>5ec1eec</code>. The scorecard was not refit. The random forest is still the validation-cost choice. The README adds a planning volume of 137,831.5 transactions a day, from two days in the extract and no timestamps to split them. At 237 review slots a day the cached validation grid expects 182.5 frauds caught and $19,684 of loss. That is the validation rate times a planning volume. It is not a calendar day, and it is not the test result of 76 frauds out of 95.</p>
+                  <p>Random-half PSI on the validation scores is 0.0002. The README calls that two halves of the same book, not a drift event. A PSI above 0.25 is described as a common review trigger, not a number fit on this file. Batch CSV scoring, up to 2,000 rows, is in this commit. The sign-in redirect above means this page does not claim a public browser can open that desk.</p>
                 </details>
                 <details class="fold">
                   <summary>What the write-up can defend</summary>
@@ -386,10 +387,10 @@
               </div>
               <figure class="reel tilt feature-media">
                 <div class="reel-frame">
-                  <img class="demo" src="/assets/reel/fraud-desk.jpg" data-gif="/assets/reel/fraud-desk.gif" width="880" height="550" alt="Still from the fraud review recording on main: a held-out ticket and the fields that moved the fraud score." decoding="async">
+                  <img class="demo" src="/assets/reel/fraud-desk.jpg?v=5" data-gif="/assets/reel/fraud-desk.gif?v=5" width="880" height="550" alt="Still from the fraud review recording on main: a held-out ticket and the fields that moved the fraud score." decoding="async">
                 </div>
                 <button class="play-demo btn btn-solid" type="button">Play demo recording</button>
-                <figcaption>Desk recording committed on main. Playback loads the GIF (about 2.9 MB). <a href="/assets/reel/fraud-desk.gif">GIF file</a>.</figcaption>
+                <figcaption>Desk recording on main at <code>5ec1eec</code>. Playback loads the GIF (about 1.2 MB). <a href="/assets/reel/fraud-desk.gif?v=5">GIF file</a>.</figcaption>
               </figure>
             </div>
           </article>
@@ -462,7 +463,7 @@
             </article>
             <article class="skill reveal">
               <h3>Evaluation hygiene</h3>
-              <p>Stratified or chronological splits, seed recorded, selection rules written before the holdout. Public files named with citations: Statlog German Credit, Lending Club OpenML 43729, OpenML credit-card 1597, UCI Online Retail. pandas for the tables. pytest, Ruff, and GitHub Actions on the three flagship repositories. The open pull requests add bootstrap intervals, a calibrated loan cutoff, and model cards. Those commits are not on <code>main</code>.</p>
+              <p>Stratified or chronological splits, seed recorded, selection rules written before the holdout. Public files named with citations: Statlog German Credit, Lending Club OpenML 43729, OpenML credit-card 1597, UCI Online Retail. pandas for the tables. pytest, Ruff, and GitHub Actions on the three flagship repositories. Main now includes the bootstrap intervals, the calibrated loan cutoff, the fraud planning volume, and the generated model cards from the merged pull requests.</p>
             </article>
             <article class="skill reveal">
               <h3>Finance context</h3>
