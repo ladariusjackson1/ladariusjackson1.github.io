@@ -14,12 +14,12 @@ PAGES = ("index.html", "404.html")
 COPY = ("index.html", "404.html", "css", "js", "assets")
 
 REQUIRED = (
-    "Ladarius Jackson",
+    "LaDarius Jackson",
+    "spell the given name Ladarius",
     "Business Analytics",
     "University of Mississippi",
     "Computer Science",
     "May 2027",
-    "active PTIN",
     "QuickBooks ProAdvisor",
     "Double Eagle Financial LLC",
     "Olive Branch",
@@ -27,7 +27,12 @@ REQUIRED = (
     "id=\"skills\"",
     "id=\"about\"",
     "id=\"contact\"",
-    "LINKEDIN_PLACEHOLDER",
+    "not merged",
+    "sign-in page",
+    "HTTP 404",
+    "pull/3",
+    "Holdout",
+    "Planning dollars",
     "prefers-reduced-motion",
     "$22,800",
     "$37,200",
@@ -107,8 +112,12 @@ def main() -> None:
             fail(f"missing required text: {fact}")
 
     blob = "\n".join((index, page_404, css, script))
-    if "linkedin.com" in blob.lower():
-        fail("a LinkedIn URL is present; leave only the LINKEDIN_PLACEHOLDER comment")
+    if "linkedin.com" in blob.lower() or "LINKEDIN_PLACEHOLDER" in blob:
+        fail("do not publish a LinkedIn URL or an empty LinkedIn placeholder")
+    if "active PTIN" in blob or ">Senior<" in index:
+        fail("do not state an unverified PTIN or class year")
+    if "Live demo" in index:
+        fail("do not label an unverified Streamlit URL as a live demo")
     if "mailto:" in blob.lower() or EMAIL.search(blob):
         fail("an email address is present")
     if "tel:" in blob.lower() or PHONE.search(blob):

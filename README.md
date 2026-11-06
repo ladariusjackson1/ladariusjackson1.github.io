@@ -1,8 +1,8 @@
-# Ladarius Jackson
+# LaDarius Jackson
 
-Personal portfolio for Ladarius Jackson, published with GitHub Pages from this repository.
+Personal portfolio for LaDarius Jackson, published with GitHub Pages from this repository. The GitHub profile uses that spelling. Some project READMEs spell the given name Ladarius.
 
-The page is a static site: HTML, CSS, and JavaScript, with no framework and no install step. It opens like a short film title card, then presents the public analytics work for a recruiter who wants the decision, the dollar figure, and the limit of the study.
+The page is static HTML, CSS, and JavaScript. It keeps a short film title card, then the three public studies a reviewer can actually open: credit risk, loan approval, and fraud review. Holdout measurements, planning dollars, and business outcomes are labeled separately. Open pull requests are described as not merged.
 
 Live site, once Pages is enabled: [https://ladariusjackson1.github.io/](https://ladariusjackson1.github.io/)
 
@@ -22,7 +22,7 @@ Open [http://127.0.0.1:8080/](http://127.0.0.1:8080/). Use a local server. Root-
 python3 scripts/check_site.py
 ```
 
-The script writes a deployable copy to `_site/` and fails if a required section, demo GIF, source link, or README figure is missing. It also fails if the page contains an email address, a phone number, or a LinkedIn URL.
+The script writes a deployable copy to `_site/` and fails if a required section, README figure, or source link is missing. It also fails if the page contains an email address, a phone number, a LinkedIn URL, an unverified PTIN, or a “Live demo” label on an app that was not verified as public.
 
 GitHub Actions runs the same script on every pull request (`.github/workflows/pages.yml`). A push to `main` uploads `_site` and deploys it.
 
@@ -46,17 +46,19 @@ Project figures are copied from the public READMEs. Nothing is estimated, rounde
 | Elite Concrete sample | [elite-concrete](https://github.com/ladariusjackson1/elite-concrete) |
 | Double Eagle Agency | [double-eagle-agency-site](https://github.com/ladariusjackson1/double-eagle-agency-site) |
 
-The three desk GIFs are the files committed in those repos (`docs/credit-desk-demo.gif`, `docs/demo.gif`, `docs/review-desk.gif`). They load lazily. Churn, lead scoring, and the other revenue-repo studies do not publish a headline number in their READMEs, so the page does not invent one.
+The three desk GIFs are the files committed on `main` in those repos (`docs/credit-desk-demo.gif`, `docs/demo.gif`, `docs/review-desk.gif`). The page shows a still first. Play loads the GIF. Churn, lead scoring, and the other revenue-repo studies do not publish a headline number, so the page does not invent one.
 
-School, degree, minor, May 2027, Olive Branch, the PTIN, the QuickBooks ProAdvisor credential, and Double Eagle Financial LLC are stated in the site copy. The PTIN number itself is not published here.
+School, degree, minor, May 2027, Olive Branch, tax preparer, QuickBooks ProAdvisor, and Double Eagle Financial LLC follow the public GitHub profile. The page does not state a PTIN, a class year, an employer, or a salary.
+
+On 6 Nov 2026, unauthenticated requests to the three Streamlit URLs in those READMEs were redirected to a Streamlit sign-in page, and `doubleeaglefinancial.com` returned HTTP 404. The page says so. The Elite Concrete sample returned HTTP 200. Pull requests 3 on the three flagship repos were open and not merged; their Actions checks had passed. The page does not describe that work as what `main` or a hosted app currently serves.
 
 ## Motion
 
-The title card plays once per browser tab, then the letterbox bars settle. Project frames tilt and glow under a fine pointer. Scene numbers drift slightly on scroll. `prefers-reduced-motion: reduce` skips the title card, the drift, and the tilt, and shows a still from each demo until you press Play demo.
+The title card plays once per browser tab, then the letterbox bars settle. Project frames tilt under a fine pointer. `prefers-reduced-motion: reduce` skips the title card, the drift, and the tilt. Demo recordings stay still until Play in every browser, so the large GIFs are not part of the first load.
 
-## LinkedIn
+## Contact
 
-Contact is the GitHub profile only. In `index.html`, the contact section has an HTML comment marked `LINKEDIN_PLACEHOLDER`. Replace that comment with a real profile URL when one exists. Do not add a guessed link.
+GitHub only. No LinkedIn URL is published, because none is on the public profile.
 
 ## Layout
 

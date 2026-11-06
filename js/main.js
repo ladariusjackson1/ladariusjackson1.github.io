@@ -2,20 +2,14 @@
   var root = document.documentElement;
   var reduce = root.classList.contains("reduce-motion");
 
-  function initReducedDemos() {
-    if (!reduce) return;
+  function initDemos() {
     document.querySelectorAll("img.demo").forEach(function (img) {
-      var live = img.getAttribute("src");
-      var poster = img.getAttribute("data-poster");
-      if (!live || !poster) return;
-      img.dataset.gif = live;
-      img.setAttribute("src", poster);
+      var gif = img.getAttribute("data-gif");
       var figure = img.closest("figure");
       var button = figure && figure.querySelector(".play-demo");
-      if (!button) return;
-      button.hidden = false;
+      if (!gif || !button) return;
       button.addEventListener("click", function () {
-        img.src = img.dataset.gif;
+        img.src = gif;
         button.hidden = true;
       });
     });
@@ -48,7 +42,7 @@
       }
     }
 
-    var timer = window.setTimeout(finish, 4200);
+    var timer = window.setTimeout(finish, 2600);
     if (skip) {
       skip.addEventListener("click", function () {
         window.clearTimeout(timer);
@@ -232,7 +226,7 @@
     window.addEventListener("resize", requestUpdate);
   }
 
-  initReducedDemos();
+  initDemos();
   initIntro();
   initHeader();
   initNav();
