@@ -275,7 +275,7 @@
                   </div>
                   <div>
                     <dt>Architecture</dt>
-                    <dd>Preprocessing sits inside the pipeline, so each fold refits it: median impute and scale for numerics, most-frequent impute and one-hot for purpose. Logistic regression is deployed (<code>C=10</code>, balanced class weight). Its cross-validated ROC-AUC is 0.670 ± 0.015 against 0.658 ± 0.012 for histogram gradient boosting. The out-of-fold gap, logistic minus boosting, is 0.003 to 0.021 and excludes zero. The same gap on the holdout is 0.006, interval −0.010 to 0.022, which includes zero and was not allowed to pick the model.</dd>
+                    <dd>Preprocessing sits inside the pipeline, so each fold refits it: median impute and scale for numerics, most-frequent impute and one-hot for purpose. Logistic regression is deployed (<code>C=10</code>, balanced class weight). Its cross-validated ROC-AUC is 0.670 ± 0.015 against 0.658 ± 0.012 for histogram gradient boosting. The out-of-fold gap, logistic minus boosting, has a 95% interval of 0.003 to 0.021, which excludes zero. The same gap on the holdout is 0.006, interval −0.010 to 0.022, which includes zero and was not allowed to pick the model.</dd>
                   </div>
                   <div>
                     <dt>Tradeoff</dt>
@@ -337,7 +337,7 @@
                   </div>
                   <div>
                     <dt>$10,903</dt>
-                    <dd>Planning save versus approving every test transaction. The forest costs $6,411. Approving everything costs $17,315. The cost interval is $2,102–$12,180.</dd>
+                    <dd>Planning save versus approving every test transaction, rounded to the nearest dollar. In <code>reports/metrics.json</code> on main the forest test cost is $6,411.164 and approve-everything is $17,314.518. That difference is $10,903.354, which rounds to $10,903. Rounding each cost first ($6,411 and $17,315) and then subtracting gives $10,904. The 95% interval on the forest’s test cost is $2,102–$12,180. The README’s $4,828 is the missed-fraud principal on 19 test frauds ($4,828.164), not the principal of approving every fraud ($14,939.518).</dd>
                   </div>
                 </dl>
                 <dl class="case">
@@ -405,7 +405,7 @@
             <article class="card tilt featurette reveal" id="revenue" data-now="Revenue ledger">
               <p class="kicker">SQL ledger · UCI Online Retail · on main</p>
               <h3>Revenue reconciliation</h3>
-              <p class="lede">Before the daily forecast, the same public extract is classified in SQLite: raw text, one disposition per row, then a daily mart. Merged in <a href="https://github.com/ladariusjackson1/revenue-prediction-model/pull/4">pull request 4</a>, commit <a href="https://github.com/ladariusjackson1/revenue-prediction-model/commit/9668ce5784023b22adbc0ea89b6a859f02bd56d7"><code>9668ce57</code></a>. The explorer on this site is that commit’s <code>docs/revenue-quality/index.html</code>, plus the aggregate files it was generated from. It is not a client ledger and not an ROI.</p>
+              <p class="lede">Before the daily forecast, the same public extract is classified in SQLite: raw text, one disposition per row, then a daily mart. Merged in <a href="https://github.com/ladariusjackson1/revenue-prediction-model/pull/4">pull request 4</a>, commit <a href="https://github.com/ladariusjackson1/revenue-prediction-model/commit/9668ce5784023b22adbc0ea89b6a859f02bd56d7"><code>9668ce57</code></a>. The explorer on this site follows that commit’s generated page, with a back link added, and publishes the aggregate files beside it. It is not a client ledger and not an ROI.</p>
               <dl class="metrics">
                 <div>
                   <dt>£9,762,760.55</dt>
@@ -423,7 +423,7 @@
                 </div>
                 <div>
                   <dt>Scope</dt>
-                  <dd>UCI Online Retail only, CC BY 4.0. Prices are already GBP. The file has no FX rates and no payment date, so there is no currency conversion and no receivables aging. Published files are aggregates. Customer ids stay out of this copy.</dd>
+                  <dd>UCI Online Retail only, CC BY 4.0. The workbook has 541,909 source rows. The net is 534,805 kept merchandise lines. Prices are already GBP. The file has no FX rates and no payment date, so there is no currency conversion and no receivables aging. Published files are aggregates. Customer ids stay out of this copy.</dd>
                 </div>
               </dl>
               <p class="note">Projects 02 through 07 do not publish a headline score. The Double Eagle dashboard in that repository is a planning illustration with assumed customers. It is not this ledger. The source repository has no GitHub Pages site. This portfolio hosts the static explorer.</p>

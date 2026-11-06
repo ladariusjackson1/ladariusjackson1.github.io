@@ -12,7 +12,7 @@
       --line: #d5dee3;
       --paper: #f4f7f8;
       --panel: #fff;
-      --accent: #0d8a6a;
+      --accent: #0b7358;
     }
     body {
       margin: 0;
@@ -91,7 +91,7 @@
     <div class="card"><span class="muted">Cancellations</span><b>-£310,159.80</b><span class="muted">invoice numbers starting with C</span></div>
     <div class="card"><span class="muted">Other returns</span><b>£0.00</b><span class="muted">negative qty, not a C invoice</span></div>
   </div>
-  <p>Identity held by the quality check <code>recon_components_equal_net</code>: gross + cancellations + other returns = net. Calendar days: 373. Days with £0.00 net: 69. Source rows: 541,909.</p>
+  <p>Identity held by the quality check <code>recon_components_equal_net</code>: gross + cancellations + other returns = net. Calendar days: 373. Days with £0.00 net: 69. Source rows in the workbook: 541,909. Kept merchandise lines in this net: 534,805. The other 7,104 rows are the partial final day (1,632), unparseable values (4), non-product codes (2,983), and non-positive prices (2,485). Those four groups do not overlap, and they are not inside the £9,762,760.55. Exact-duplicate extras are inside the kept lines, not in the 7,104.</p>
 
   <h2>Duplicate sensitivity</h2>
   <p>The forecast-matching total <strong>keeps</strong> exact duplicate extras, because that is what the published daily series does. Removing them would change the total. That difference is a decision, not a discovered fact about the shop floor.</p>
