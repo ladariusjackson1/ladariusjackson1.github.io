@@ -27,9 +27,13 @@ REQUIRED = (
     "id=\"skills\"",
     "id=\"about\"",
     "id=\"contact\"",
-    "not merged",
+    "e4a0933",
+    "25bd00c",
+    "5ec1eec",
     "sign-in page",
     "HTTP 404",
+    "not a fair-lending finding",
+    "not a drift event",
     "pull/3",
     "Holdout",
     "Planning dollars",
@@ -39,13 +43,15 @@ REQUIRED = (
     "8.9%",
     "0.793",
     "0.772",
-    "$137,000",
-    "$828,400",
+    "$139,000",
+    "$826,400",
     "$965,400",
     "$1,535,000",
-    "94.8%",
+    "94.9%",
+    "0.703",
     "0.704",
     "0.670",
+    "0.89",
     "$10,903",
     "$6,411",
     "$17,315",
@@ -118,6 +124,8 @@ def main() -> None:
         fail("do not state an unverified PTIN or class year")
     if "Live demo" in index:
         fail("do not label an unverified Streamlit URL as a live demo")
+    if "not merged" in index.lower() or "not on main" in index.lower() or "open pull request" in index.lower():
+        fail("flagship pull request 3 is merged; do not leave an open-PR label")
     if "mailto:" in blob.lower() or EMAIL.search(blob):
         fail("an email address is present")
     if "tel:" in blob.lower() or PHONE.search(blob):
