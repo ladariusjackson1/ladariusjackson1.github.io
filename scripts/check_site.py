@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import shutil
 import sys
@@ -11,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "_site"
 PAGES = ("index.html", "404.html")
-COPY = ("index.html", "404.html", "css", "js", "assets")
+COPY = ("index.html", "404.html", "css", "js", "assets", "revenue-quality")
 
 REQUIRED = (
     "LaDarius Jackson",
@@ -62,6 +63,11 @@ REQUIRED = (
     "$2,102",
     "$5,728",
     "£11,629.44",
+    "£9,762,760.55",
+    "9668ce5784023b22adbc0ea89b6a859f02bd56d7",
+    "/revenue-quality/",
+    "no payment date",
+    "not a client",
     "£12,283.78",
     "About £654",
     "https://credit-risk-prediction.streamlit.app",
@@ -99,6 +105,60 @@ LOCAL_ASSETS = (
 EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 PHONE = re.compile(r"(?:\+?1[\s.-]?)?(?:\(\d{3}\)|\d{3})[\s.-]\d{3}[\s.-]\d{4}")
 ATTR = re.compile(r"""(?:src|href)\s*=\s*["']([^"']+)["']""", re.I)
+
+
+def gbp(pence: int) -> str:
+    sign = "-" if pence < 0 else ""
+    pence = abs(int(pence))
+    return f"{sign}£{pence // 100:,}.{pence % 100:02d}"
+
+
+def verify_revenue_explorer(root: Path) -> None:
+    page = root / "revenue-quality" / "index.html"
+    snap_path = root / "revenue-quality" / "data" / "uci_snapshot.json"
+    if not page.is_file() or not snap_path.is_file():
+        fail("revenue explorer or snapshot is missing")
+    html = page.read_text(encoding="utf-8")
+    snap = json.loads(snap_path.read_text(encoding="utf-8"))
+    if snap["gross_pence"] + snap["cancellations_pence"] + snap["returns_pence"] != snap["net_pence"]:
+        fail("snapshot merchandise identity does not hold")
+    required = [
+        gbp(snap["net_pence"]),
+        gbp(snap["gross_pence"]),
+        gbp(snap["cancellations_pence"]),
+        gbp(snap["duplicate_extra_pence"]),
+        gbp(snap["duplicate_bridge"]["net_if_extras_removed_pence"]),
+        gbp(snap["missing_customer_pence"]),
+        gbp(snap["adjustment_invoice_pence"]),
+        f"{snap['raw_rows']:,}",
+        f"{snap['identified_customers']:,}",
+        f"{snap['active_one_month_later']:,}",
+        "recon_components_equal_net",
+        "recon_lines_equal_daily",
+        snap["xlsx_sha256"],
+        "CC BY 4.0",
+        "9668ce5784023b22adbc0ea89b6a859f02bd56d7",
+    ]
+    for item in required:
+        if item not in html:
+            fail(f"explorer HTML does not show snapshot value: {item}")
+    uk = snap["countries"][0]
+    if uk["country"] != "United Kingdom" or f"{uk['share_bps'] / 100:.2f}%" not in html:
+        fail("explorer country table does not match the snapshot")
+    for name in (
+        "uci_snapshot.json",
+        "country_revenue.csv",
+        "cohort_by_month.csv",
+        "daily_merchandise.csv",
+    ):
+        text = (root / "revenue-quality" / "data" / name).read_text(encoding="utf-8")
+        header = text.splitlines()[0].lower()
+        if "customer_id" in header or "customerid" in header or "invoiceno" in header:
+            fail(f"{name} publishes a customer or invoice identifier")
+        if re.search(r"\b(api[_-]?key|secret|password)\b", text, re.I):
+            fail(f"{name} contains a secret-like field")
+    if html.count('class="table-scroll"') != 2:
+        fail("explorer tables are not in keyboard-scrollable regions")
 
 
 def fail(message: str) -> None:
@@ -157,6 +217,8 @@ def main() -> None:
             target = ROOT / local.lstrip("/")
             if not target.exists():
                 fail(f"{name} references missing file: {ref}")
+
+    verify_revenue_explorer(ROOT)
 
     if SITE.exists():
         shutil.rmtree(SITE)

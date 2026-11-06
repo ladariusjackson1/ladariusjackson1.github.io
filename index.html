@@ -123,7 +123,7 @@
               <li><a href="#credit-risk"><span>01</span> Credit risk</a></li>
               <li><a href="#loan-approval"><span>02</span> Loan approval</a></li>
               <li><a href="#fraud-review"><span>03</span> Fraud review</a></li>
-              <li><a href="#revenue"><span>04</span> Revenue model</a></li>
+              <li><a href="#revenue"><span>04</span> Revenue ledger</a></li>
             </ol>
           </aside>
         </div>
@@ -398,29 +398,40 @@
           <div class="also-head" id="also-showing" data-now="Also on GitHub">
             <p class="kicker">Not the three studies</p>
             <h3>Also on GitHub</h3>
-            <p class="lede">Included only where a README states a result or a limit. No hosted link is marked live unless a request on 6 Nov 2026 returned the page.</p>
+            <p class="lede">Included only where a README states a result or a limit. The revenue explorer is hosted on this site from a merged commit. Other external hosts are marked live only when a request on 6 Nov 2026 returned the page.</p>
           </div>
 
           <div class="also-grid">
-            <article class="card tilt featurette reveal" id="revenue" data-now="Revenue model">
-              <p class="kicker">Forecast · UCI Online Retail</p>
-              <h3>Revenue prediction model</h3>
-              <p class="lede">The repository README lists seven studies — daily sales, churn, lead scoring, RFM, expense memos, MRR, and appointment no-shows — plus a Double Eagle Financial planning dashboard. His profile README describes this repository as being rebuilt. Only the daily-sales study publishes a headline error.</p>
+            <article class="card tilt featurette reveal" id="revenue" data-now="Revenue ledger">
+              <p class="kicker">SQL ledger · UCI Online Retail · on main</p>
+              <h3>Revenue reconciliation</h3>
+              <p class="lede">Before the daily forecast, the same public extract is classified in SQLite: raw text, one disposition per row, then a daily mart. Merged in <a href="https://github.com/ladariusjackson1/revenue-prediction-model/pull/4">pull request 4</a>, commit <a href="https://github.com/ladariusjackson1/revenue-prediction-model/commit/9668ce5784023b22adbc0ea89b6a859f02bd56d7"><code>9668ce57</code></a>. The explorer on this site is that commit’s <code>docs/revenue-quality/index.html</code>, plus the aggregate files it was generated from. It is not a client ledger and not an ROI.</p>
               <dl class="metrics">
                 <div>
-                  <dt>£11,629.44</dt>
-                  <dd>Holdout MAE for the saved random forest, 1 October 2011 through 8 December 2011. The model was chosen on an earlier window.</dd>
+                  <dt>£9,762,760.55</dt>
+                  <dd>Net merchandise in the committed snapshot, 1 Dec 2010 through 8 Dec 2011, integer pence. Gross sales £10,072,920.35 plus cancellations −£310,159.80. The quality check requires that identity.</dd>
                 </div>
                 <div>
-                  <dt>About £654</dt>
-                  <dd>Lower MAE than forecasting each day with the same weekday one week earlier. The seasonal naive test MAE is £12,283.78.</dd>
+                  <dt>£11,629.44</dt>
+                  <dd>Separate forecast. Holdout MAE for the random forest on that daily series, 1 Oct 2011 through 8 Dec 2011. About £654 under the same-weekday-last-week forecast (£12,283.78). Not a change in revenue.</dd>
                 </div>
               </dl>
-              <p class="note">Projects 02 through 07 do not publish a headline score in their READMEs. This page does not quote a churn rate, a lead-score AUC, or a dashboard KPI. There is no public demo URL in the repository.</p>
-              <p class="limit"><span>Limit.</span> One UK gift retailer and one holiday-season window. The gain over last week is real on this split and modest against errors of about £12,000. It is not a Double Eagle revenue result.</p>
+              <dl class="case">
+                <div>
+                  <dt>Pipeline</dt>
+                  <dd>Full refresh into <code>raw</code>, <code>staging</code>, and <code>mart</code>. Disposition priority drops an incomplete final day, unparseable values, non-product codes, and non-positive prices before an exact-duplicate extra can be flagged. A second run of the same fixture does not change net revenue. Adding one penny to 1 Dec 2010 makes the line-to-daily check fail. Those behaviors are in <code>finance/tests</code>.</dd>
+                </div>
+                <div>
+                  <dt>Scope</dt>
+                  <dd>UCI Online Retail only, CC BY 4.0. Prices are already GBP. The file has no FX rates and no payment date, so there is no currency conversion and no receivables aging. Published files are aggregates. Customer ids stay out of this copy.</dd>
+                </div>
+              </dl>
+              <p class="note">Projects 02 through 07 do not publish a headline score. The Double Eagle dashboard in that repository is a planning illustration with assumed customers. It is not this ledger. The source repository has no GitHub Pages site. This portfolio hosts the static explorer.</p>
+              <p class="limit"><span>Limit.</span> One UK gift wholesaler. Exact-duplicate extras of £21,371.10 stay in the official net so the mart matches the forecast series. Removing them is a sensitivity (£9,741,389.45), not a second set of books. Nobody adopted the pipeline.</p>
               <div class="actions">
-                <a class="btn btn-solid" href="https://github.com/ladariusjackson1/revenue-prediction-model" target="_blank" rel="noopener noreferrer">Repository<span class="sr-only"> (opens in a new tab)</span></a>
-                <a class="btn" href="https://github.com/ladariusjackson1/revenue-prediction-model/blob/main/projects/01-daily-sales-forecast/README.md" target="_blank" rel="noopener noreferrer">Forecast write-up<span class="sr-only"> (opens in a new tab)</span></a>
+                <a class="btn btn-solid" href="/revenue-quality/">Open the ledger explorer</a>
+                <a class="btn" href="https://github.com/ladariusjackson1/revenue-prediction-model/blob/9668ce5784023b22adbc0ea89b6a859f02bd56d7/finance/PROVENANCE.md" target="_blank" rel="noopener noreferrer">Provenance<span class="sr-only"> (opens in a new tab)</span></a>
+                <a class="btn" href="https://github.com/ladariusjackson1/revenue-prediction-model" target="_blank" rel="noopener noreferrer">Repository<span class="sr-only"> (opens in a new tab)</span></a>
               </div>
             </article>
 
@@ -510,7 +521,8 @@
           <li><a href="https://github.com/ladariusjackson1/credit-risk-prediction" target="_blank" rel="noopener noreferrer">Credit risk</a></li>
           <li><a href="https://github.com/ladariusjackson1/loan-approval-prediction" target="_blank" rel="noopener noreferrer">Loan approval</a></li>
           <li><a href="https://github.com/ladariusjackson1/fraud-detection-ml" target="_blank" rel="noopener noreferrer">Fraud review</a></li>
-          <li><a href="https://github.com/ladariusjackson1/revenue-prediction-model" target="_blank" rel="noopener noreferrer">Revenue model</a></li>
+          <li><a href="/revenue-quality/">Revenue ledger</a></li>
+          <li><a href="https://github.com/ladariusjackson1/revenue-prediction-model" target="_blank" rel="noopener noreferrer">Revenue source</a></li>
           <li><a href="https://github.com/ladariusjackson1/double-eagle-financial-site" target="_blank" rel="noopener noreferrer">Double Eagle Financial</a></li>
           <li><a href="https://github.com/ladariusjackson1/elite-concrete" target="_blank" rel="noopener noreferrer">Elite Concrete sample</a></li>
         </ul>
