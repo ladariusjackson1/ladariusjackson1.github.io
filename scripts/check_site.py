@@ -27,6 +27,8 @@ REQUIRED = (
     "id=\"projects\"",
     "id=\"skills\"",
     "id=\"about\"",
+    "LaDarius Jackson headshot",
+    "/assets/images/ladarius-jackson-headshot.jpg",
     "id=\"contact\"",
     "e4a0933",
     "25bd00c",
@@ -102,6 +104,7 @@ LOCAL_ASSETS = (
     "assets/favicon.svg",
     "assets/og.png",
     "assets/apple-touch.png",
+    "assets/images/ladarius-jackson-headshot.jpg",
     "css/styles.css",
     "js/main.js",
 )
